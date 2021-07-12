@@ -5,7 +5,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MayeTableView w;
-    w.show();
+    QWidget wid;
+    MayeTableView w(&wid);
+    wid.show();
     return a.exec();
 }

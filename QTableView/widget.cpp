@@ -16,7 +16,25 @@
 #include<QPalette>
 QString qss=
 R"(
-
+QTableView
+{
+    color:black;
+    selection-color:white;
+    selection-background-color:rgb(164,213,242);
+    border:2px groove gray;
+}
+QTableView
+{
+    /*奇偶行交替变换背景颜色，需要在代码中调用setAlternatingRowColors(true)*/
+    background-color:white;
+    alternate-background-color:rgb(233,245,252);
+}
+QHeaderView
+{
+    color:black;
+    font:bold 10pt " Arial";
+    background-color:rgb(108,108,108);
+}
 )";
 
 class ButtonDelegate:public QItemDelegate
@@ -71,12 +89,7 @@ public:
             //qDebug()<<"moue move";
 
         }
-        if(event->type() == QEvent::Enter)
-        {
-           // qDebug()<<"Mouse Enter";
-        }
-
-
+        return true;
     }
 private:
     mutable QMap<QModelIndex,QStyleOptionButton*> m_btns;
@@ -143,6 +156,8 @@ MayeTableView::MayeTableView(QWidget *parent)
 {
     setMouseTracking(true);
     resize(840,480);
+    setStyleSheet(qss);
+
     model = new QStandardItemModel;
     model->setHorizontalHeaderLabels({"No.","ID","Name","Age","Sex","Show"});
     setModel(model);
